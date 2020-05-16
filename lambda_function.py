@@ -43,13 +43,37 @@ def lambda_handler(event, context):
         table_name, table_bucket, table_key = glueutils.create_table(system=system, interface=interface,
                                                                      file_type=file_type,
                                                                      database_name=database_name_wrk)
-        print('ok')
+        print('Termino OKs')
 
-        key_output = f'{key_output}/{interface}/pt_date={pt_date}/pt_time={pt_time}/{interface}.csv'
+        key_output = f'{table_key}/pt_date={pt_date}/pt_time={pt_time}/{interface}.csv'
 
         print('lm: subiendo archivo al nuevo repositorio', end='')
         s3.put_object(Bucket=os.environ['bucket_output'], Key=key_output, Body=filebody.encode('utf-8'))
         print('Termino OKs')
+
+        print('lm: traer la tabla de glue: ', end="")
+        table = glueutils.get_glue_table(database_name_wrk, table_name)
+        print('ok')
+
+        partition = f"pt_date={pt_date}/pt_time={pt_time}"
+
+        print('lm: configurar nueva particion')
+        new_partition = {
+            'Values': [pt_date, pt_time],
+            'StorageDescriptor': {
+                'OutputFormat': table['StorageDescriptor']['OutputFormat'],
+                'InputFormat': table['StorageDescriptor']['InputFormat'],
+                'SerdeInfo': table['StorageDescriptor']['SerdeInfo'],
+                'Columns': table['StorageDescriptor']['Columns'],
+                'Location': f"s3://{table_bucket}/{table_key}/{partition}"
+            }
+        }
+
+        print('lm: agregar nueva particion: ', end='')
+        response = glueutils.create_partition(database_name_wrk=database_name_wrk,
+                                              table_name=table['Name'],
+                                              new_partition=new_partition)
+        print('Okey particion agregada:', partition)
 
     except Exception as ex:
         print('Ups: ', ex)

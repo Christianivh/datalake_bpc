@@ -136,3 +136,15 @@ def get_glue_table(database_name: str, table_name: str):
         raise ValueError(f'Error:   {database_name}.{table_name} no existe')
         return None
 
+
+def create_partition(database_name_wrk, table_name, new_partition):
+    try:
+        print('lm: agregar nueva particion: ', end='')
+        response = glue.create_partition(DatabaseName=database_name_wrk,
+                                         TableName=table_name,
+                                         PartitionInput=new_partition)
+        print('Okey particion agregada:')
+    except glue.exceptions.AlreadyExistsException as e:
+        print('lm:excepcion Particion ya existente', e)
+
+
