@@ -1,0 +1,32 @@
+[
+  {
+    "index": 0,
+    "column_name": "fecha",
+    "data_type": "date",
+    "delimiter":","
+  },
+  {
+    "index": 1,
+    "column_name": "confirmados",
+    "data_type": "int",
+    "delimiter":","
+  },
+  {
+    "index": 2,
+    "column_name": "fallecidos",
+    "data_type": "int",
+    "delimiter":","
+  },
+  {
+    "index": 3,
+    "column_name": "recuperados",
+    "data_type": "int",
+    "delimiter":","
+  },
+  {
+    "index": 4,
+    "column_name": "pais",
+    "data_type": "str",
+    "delimiter":","
+  }
+]

@@ -1,0 +1,45 @@
+{
+  "covid": [
+    {
+      "interface": "covid_report",
+      "file_format": "part",
+      "file_type": "csv",
+      "columns": [
+        { "column_name": "fecha", "data_type": "string"},
+        { "column_name": "confirmados", "data_type": "string"},
+        { "column_name": "fallecidos", "data_type": "string"},
+        { "column_name": "recuperados", "data_type": "string"},
+        { "column_name": "pais", "data_type": "string"}
+      ]
+    }
+  ],
+  "facturacion": [
+    {
+      "interface": "fact_cabecera",
+      "file_type": "csv",
+      "file_format": "part",
+      "columns": [
+        { "column_name": "cod_pais", "data_type": "string"},
+        { "column_name": "cod_cliente", "data_type": "string"},
+        { "column_name": "cod_geografia", "data_type": "string"},
+        { "column_name": "tipo_boleta", "data_type": "string"},
+        { "column_name": "nro_boleta", "data_type": "string"}
+      ]
+    },
+    {
+      "interface": "fact_detalle",
+      "file_type": "csv",
+      "columns": [
+        { "column_name": "cod_pais", "data_type": "string"},
+        { "column_name": "cod_cliente", "data_type": "string"},
+        { "column_name": "nro_boleta", "data_type": "string"},
+        { "column_name": "fecha", "data_type": "string"},
+        { "column_name": "cod_producto", "data_type": "string"},
+        { "column_name": "cod_ofertas", "data_type": "string"},
+        { "column_name": "des_marca", "data_type": "string"},
+        { "column_name": "uu_vendidas", "data_type": "string"},
+        { "column_name": "vta_neta", "data_type": "string"}
+      ]
+    }
+  ]
+}
