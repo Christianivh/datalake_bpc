@@ -8,6 +8,7 @@ s3 = boto3.client('s3')
 
 
 def lambda_handler(event, context):
+
     print(f'S3 Evento:  {event}')
 
     if isinstance(event, str):
